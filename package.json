@@ -1,0 +1,19 @@
+{
+  "name": "qqmini-cli",
+  "version": "1.0.3",
+  "description": "qq小程序脚手架，方便创建页面和组件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "allensix",
+  "license": "ISC",
+  "bin": {
+    "qq": "./index.js"
+  },
+  "dependencies": {
+    "commander": "^6.0.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
