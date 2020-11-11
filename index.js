@@ -4,9 +4,10 @@ const path = require('path');
 const commander = require('commander')
 
 commander
-  .version('1.0.3')
+  .version('1.0.4')
   .option('-p, --page [name]', 'create a page')
   .option('-c, --component [name]', 'create a component')
+  .option('-v, --vue [name]', 'create a vue page')
   .parse(process.argv);
 
 /**
@@ -56,6 +57,37 @@ function createFile(type, fileName) {
     }); 
 }
 
+/**
+ * 创建vue页面
+ * @param {*} fileName 自定义的文件名字
+ */
+function createVueFile(fileName) {
+    // 当前执行命令的路径
+    let root = path.resolve('./');
+    let file = {fileContent: '', filePath: ''}
+    let template = 'template.vue'
+    // 获取文件内容
+    let content = fs.readFileSync(path.join(__dirname, template), 'utf8');
+    content = content.replace(/HelloWorld/g, fileName)
+    let replaceStr = 'template';
+    // 获取目标文件路径
+    let filePath = path.join(root, template.replace(replaceStr, fileName));
+    file.content = content;
+    file.filePath = filePath;
+
+    // 创建文件
+    let targetFilePath = file.filePath;
+    let targetFileContent = file.content;
+    if (!fs.existsSync(targetFilePath)) {
+        fs.writeFile(targetFilePath, targetFileContent, (err) => {
+            if (err) throw err;
+            console.log(`${targetFilePath}创建成功`);
+        });
+    } else {
+        console.error(`error: ${targetFilePath}已存在`);
+    }
+}
+
 if (commander.page) {
     let fileName = commander.page;
     createFile("page", fileName);
@@ -65,6 +97,11 @@ if (commander.page) {
 if (commander.component) {
     let fileName = commander.component;
     createFile("component", fileName);
+}
+
+if (commander.vue) {
+    let fileName = commander.vue;
+    createVueFile(fileName);
 }
 
 

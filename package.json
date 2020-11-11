@@ -1,6 +1,6 @@
 {
   "name": "qqmini-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "qq小程序脚手架，方便创建页面和组件",
   "main": "index.js",
   "scripts": {
